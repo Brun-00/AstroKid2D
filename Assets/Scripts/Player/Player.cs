@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
 
     [Header("Movement")]
-    public Vector2 friction = new Vector2(.1f,0);
+    public Vector2 friction = new Vector2(.1f, 0);
     public float moveSpeed;
     public float runSpeed;
     public float jumpForce = 2;
@@ -20,109 +20,75 @@ public class Player : MonoBehaviour
     public Ease ease = Ease.OutBack;
     public float runScalex = 0.8f;
 
-    [Header("Ground Check")]
-    public Transform groundCheck;
-    public float groundRadius = 0.2f;
-    public LayerMask groundLayer;
-
-    private bool _isGrounded;
-    private bool _wasGrounded;
-
-    [Header("Land Animation")]
-    public float landScaleX = 1.3f;
-    public float landScaleY = 0.7f;
-    public float landDuration = 0.15f;
-
+    [Header("Animation Player")]
+    public string boolRun = "Run";
+    public Animator animator;
+    public float swipeDuration = .2f;
 
     private float _currentMoveSpeed;
 
-
-    void Update()
+    private void Update()
     {
-        CheckGround();
         HandleJump();
         HandleMovement();
     }
 
     private void HandleMovement()
     {
-        if(Input.GetKey(KeyCode.LeftControl))
+
+
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             _currentMoveSpeed = runSpeed;
-
-            HandleScaleRun();
-            
+            animator.speed = 1.3f;
         }
         else
         {
-            rb.transform.localScale = Vector2.one;
+            animator.speed = 1f;
             _currentMoveSpeed = moveSpeed;
         }
+
         if (Input.GetKey(KeyCode.A))
         {
-            
             rb.velocity = new Vector2(-_currentMoveSpeed, rb.velocity.y);
+            if(rb.transform.localScale.x != -1)
+            {
+                    rb.transform.DOScaleX(-1, swipeDuration).SetEase(ease);
+            }
+            animator.SetBool(boolRun, true);
+
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            
             rb.velocity = new Vector2(_currentMoveSpeed, rb.velocity.y);
+            if (rb.transform.localScale.x != 1)
+            {
+                rb.transform.DOScaleX(1, swipeDuration).SetEase(ease);
+            }
+            animator.SetBool(boolRun, true);
+        }
+        else
+        {
+            animator.SetBool(boolRun, false);
         }
 
-        if(rb.velocity.x >0)
+        if (rb.velocity.x > 0)
         {
             rb.velocity += friction;
         }
-        else if (rb.velocity.x <0)
+        else if (rb.velocity.x < 0)
         {
             rb.velocity -= friction;
-        }
-
-    }
-    private void CheckGround()
-    {
-        _wasGrounded = _isGrounded;
-        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
-
-        if (!_wasGrounded && _isGrounded)
-        {
-            HandleLandScale();
         }
     }
 
     private void HandleJump()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector2.up * jumpForce;
-            rb.transform.localScale = Vector2.one;
 
-            DOTween.Kill(rb.transform);
-            HandleScaleJump();
         }
     }
 
-    private void HandleScaleJump()
-    {
-        rb.transform.DOScaleY(jumpScaley, duration).SetLoops(2,LoopType.Yoyo).SetEase(ease);
-        rb.transform.DOScaleX(jumpScalex, duration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-
-    }
-
-    private void HandleScaleRun()
-    {
-        rb.transform.DOScaleX(runScalex, duration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-    }
-
-    private void HandleLandScale()
-    {
-        DOTween.Kill(rb.transform);
-
-        rb.transform.DOScale(
-            new Vector3(landScaleX, landScaleY, 1),
-            landDuration
-        )
-        .SetLoops(2, LoopType.Yoyo)
-        .SetEase(Ease.OutQuad);
-    }
 }
