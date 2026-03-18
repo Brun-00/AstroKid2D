@@ -6,6 +6,7 @@ using DG.Tweening;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public HealhtBase _healthBase;
 
     [Header("Movement")]
     public Vector2 friction = new Vector2(.1f, 0);
@@ -22,21 +23,48 @@ public class Player : MonoBehaviour
 
     [Header("Animation Player")]
     public string boolRun = "Run";
+    public string triggerDeath = "Death";
     public Animator animator;
     public float swipeDuration = .2f;
 
-    private float _currentMoveSpeed;
+    [Header("Ground Check")]
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+    public LayerMask groundLayer;
 
+    private float _currentMoveSpeed;
+    private bool _isGrounded;
+    private bool _isDead = false;
+
+
+    private void Awake()
+    {
+        if(_healthBase != null)
+        {
+            _healthBase.OnKill += OnPlayerKill;
+        }
+    }
+
+    private void OnPlayerKill()
+    {
+        _healthBase.OnKill -= OnPlayerKill;
+        animator.SetTrigger(triggerDeath);
+        _isDead = true;
+
+    }
     private void Update()
     {
         HandleJump();
         HandleMovement();
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+
     }
 
     private void HandleMovement()
     {
 
-
+        if (_isDead) return;
         if (Input.GetKey(KeyCode.LeftControl))
         {
             _currentMoveSpeed = runSpeed;
@@ -84,10 +112,9 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
             rb.velocity = Vector2.up * jumpForce;
-
         }
     }
 
