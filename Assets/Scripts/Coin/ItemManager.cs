@@ -5,9 +5,9 @@ using Assets.Scripts;
 
 public class ItemManager : Singleton<ItemManager>
 {
-    public TMPro.TextMeshProUGUI coinsText;
+    public ItemCollectableCoin coin;
 
-    public int coins;
+    public SOInt coins;
 
     private void Start()
     {
@@ -17,18 +17,16 @@ public class ItemManager : Singleton<ItemManager>
 
     private void Reset()
     {
-        coins = 0;
-        coinsText.text = ("x" + coins.ToString());
+        coins.value = 0;
+
 
 
     }
 
-    public void AddCoins(int amount = 1)
-    {         coins+= amount;
+    public void AddCoins(int amount)
+    {         
+        coins.value += amount;
     }
 
-    private void Update()
-    {
-        coinsText.text = ("x" + coins.ToString());
-    }
+
 }

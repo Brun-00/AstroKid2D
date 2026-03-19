@@ -151,8 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dfed7f8f0ef3949bf465e086497d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinsText: {fileID: 1553454495}
-  coins: 0
+  coin: {fileID: 0}
+  coins: {fileID: 11400000, guid: 399713b05e4e945458c871fc5047b0e9, type: 2}
 --- !u!4 &31516211
 Transform:
   m_ObjectHideFlags: 0
@@ -495,6 +495,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2613449376763786963, guid: caf327107c7f83d479735b56e77895d6, type: 3}
   m_PrefabInstance: {fileID: 3567551878752585975}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &284841292
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 877122557}
+    m_Modifications:
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.08482361
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6611180835582000750, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+      propertyPath: m_Name
+      value: PFB_GreenCoin
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
 --- !u!1 &301673109
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,18 +1138,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 513429450}
   _healthBase: {fileID: 513429455}
-  friction: {x: -1, y: 0}
-  moveSpeed: 15
-  runSpeed: 19
-  jumpForce: 22
-  jumpScaley: 1.4
-  jumpScalex: 0.8
-  duration: 2
+  playerSetup: {fileID: 11400000, guid: cda9e6a78143c09409f5fbe562f2f739, type: 2}
   ease: 27
   runScalex: 0.85
-  boolRun: Run
   animator: {fileID: 1397817122}
-  swipeDuration: 0.5
   groundCheck: {fileID: 592049365}
   groundCheckRadius: 0.2
   groundLayer:
@@ -1110,9 +1159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4b619b1b9e2254fa6759f60629cfb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startLife: 3
+  startLife: 10
   destroyOnKill: 0
-  delayToKill: 0.5
+  delayToKill: 0.8
   _flashColor: {fileID: 1397817124}
 --- !u!1 &549264168
 GameObject:
@@ -1940,6 +1989,7 @@ Transform:
   - {fileID: 1944091076}
   - {fileID: 171680489}
   - {fileID: 1514358141}
+  - {fileID: 1599469059}
   m_Father: {fileID: 382445301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &895642830
@@ -3734,6 +3784,7 @@ GameObject:
   - component: {fileID: 1553454494}
   - component: {fileID: 1553454496}
   - component: {fileID: 1553454495}
+  - component: {fileID: 1553454497}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -3857,6 +3908,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553454493}
   m_CullTransparentMesh: 1
+--- !u!114 &1553454497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553454493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143b1983aeb2d9946a1b092653021c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soInt: {fileID: 11400000, guid: 399713b05e4e945458c871fc5047b0e9, type: 2}
+  text: {fileID: 1553454495}
 --- !u!212 &1576884892 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 4989476794605110809, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
@@ -3942,6 +4007,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594511590}
   m_CullTransparentMesh: 1
+--- !u!4 &1599469059 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5978207452712659217, guid: 53ab6b5cea66c1a41b70a0a917fb7660, type: 3}
+  m_PrefabInstance: {fileID: 284841292}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1601644866
 GameObject:
   m_ObjectHideFlags: 0
@@ -5455,8 +5525,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1796568856}
     - target: {fileID: 7855844051904174275, guid: caf327107c7f83d479735b56e77895d6, type: 3}
+      propertyPath: delayToKill
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7855844051904174275, guid: caf327107c7f83d479735b56e77895d6, type: 3}
       propertyPath: destroyOnKill
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

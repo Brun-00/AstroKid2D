@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: de085835d504f71449418b1ac8036134, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 9092119065042378059}
   - component: {fileID: 1553603589677641274}
   m_Layer: 0
-  m_Name: PFB_Coin
+  m_Name: PFB_GreenCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   compareTag: Player
-  price: {fileID: 11400000, guid: f87975739f373a245bad69fc6949a8fe, type: 2}
+  price: {fileID: 11400000, guid: 330c4c67c01ed2a42a0d575d10a04f03, type: 2}
 --- !u!58 &9092119065042378059
 CircleCollider2D:
   m_ObjectHideFlags: 0
