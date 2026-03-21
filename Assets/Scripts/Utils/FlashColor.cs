@@ -23,14 +23,28 @@ public class FlashColor : MonoBehaviour
 
     public void Flash()
     {
-        if(_currentTween!=null)
+        if (_currentTween != null && _currentTween.IsActive())
         {
             _currentTween.Kill();
-            spriteRenderers.ForEach(s => s.color = Color.white);
         }
-        foreach(var s in spriteRenderers)
+
+        spriteRenderers.ForEach(s => s.DOKill());
+
+        Sequence seq = DOTween.Sequence();
+
+        foreach (var s in spriteRenderers)
         {
-            s.DOColor(color, flashDuration).SetLoops(2, LoopType.Yoyo);
+            s.color = color;
         }
+
+        seq.AppendInterval(0.08f);
+
+
+        foreach (var s in spriteRenderers)
+        {
+            seq.Join(s.DOColor(Color.white, 0.5f));
+        }
+
+        _currentTween = seq;
     }
 }

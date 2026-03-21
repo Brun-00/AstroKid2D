@@ -11,9 +11,15 @@ public class GunBase : MonoBehaviour
 
     private Coroutine _currentCoroutine;
 
+    public Player player;
+
+
+
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (player != null && player.IsDead()) return;
+
+        if (Input.GetMouseButtonDown(0))
         {
             _currentCoroutine = StartCoroutine(StartShoot());
         }
@@ -28,14 +34,33 @@ public class GunBase : MonoBehaviour
 
     IEnumerator StartShoot()
     {
-        Shoot();
-        yield return new WaitForSeconds(timeBetweenShots);
+        
+            Shoot();
+            yield return new WaitForSeconds(timeBetweenShots);
+        
     }
 
     public void Shoot()
     {
+        if (player != null && player.IsDead()) return;
+
         var projectile = Instantiate(projectilePrefab);
         projectile.transform.position = shootingPosition.position;
-        projectile.side = playerSide.transform.localScale.x;
+
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+
+        Vector2 direction = (mousePos - shootingPosition.position).normalized;
+
+        projectile.SetDirection(direction);
+    }
+
+    public void StopShooting()
+    {
+        if (_currentCoroutine != null)
+        {
+            StopCoroutine(_currentCoroutine);
+            _currentCoroutine = null;
+        }
     }
 }

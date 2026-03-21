@@ -10,16 +10,6 @@ public class Player : MonoBehaviour
 
     [Header("Setup")]
     public SOPlayerSetup playerSetup;
-    /*[Header("Movement")]
-    public Vector2 friction = new Vector2(.1f, 0);
-    public float moveSpeed;
-    public float runSpeed;
-    public float jumpForce = 2;
-    [Header("Animation Player")]
-    public string boolRun = "Run";
-    public string triggerDeath = "Death";
-    
-    public float swipeDuration = .2f;*/
 
     public Ease ease = Ease.OutBack;
     public float runScalex = 0.8f;
@@ -33,6 +23,10 @@ public class Player : MonoBehaviour
     private float _currentMoveSpeed;
     private bool _isGrounded;
     private bool _isDead = false;
+
+    public GunBase gun;
+
+    public ParticleSystem particlePrefab;
 
 
     private void Awake()
@@ -49,14 +43,23 @@ public class Player : MonoBehaviour
         animator.SetTrigger(playerSetup.triggerDeath);
         _isDead = true;
 
+        if (gun != null)
+        {
+            gun.StopShooting();
+            gun.enabled = false; 
+        }
+
     }
     private void Update()
     {
-        HandleJump();
-        HandleMovement();
+        
         _isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
+        HandleJump();
+        HandleMovement();
 
+        animator.SetBool("IsJumping", !_isGrounded);
+        animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
     private void HandleMovement()
@@ -110,10 +113,23 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
+        if (_isDead) return;
+
         if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
+            ParticleSystem ps = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+            ps.Play();
             rb.velocity = Vector2.up * playerSetup.jumpForce;
+            Destroy(ps.gameObject, 5);
+
         }
     }
+
+    public bool IsDead()
+    {
+        return _isDead;
+    }
+
+
 
 }

@@ -4,31 +4,40 @@ using UnityEngine;
 
 public class ProjectileBase : MonoBehaviour
 {
-    public Vector3 direction;
+    public float speed = 10f;
     public float destroyTime = 2f;
-    public float side = 1f;
     public int damage = 1;
+
+    private Vector2 _direction;
+    private Rigidbody2D _rb;
 
     private void Awake()
     {
+        _rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, destroyTime);
     }
 
-    void Update()
+    public void SetDirection(Vector2 dir)
     {
-        transform.Translate(direction *Time.deltaTime * side);
+        _direction = dir.normalized;
+
+        // Move usando física
+        _rb.velocity = _direction * speed;
+
+        // Rotaciona na direção do tiro
+        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var enemy = collision.transform.GetComponent<EnemyBase>();
 
-        if(enemy != null)
+        if (enemy != null)
         {
             enemy.Damage(damage);
-            Destroy(gameObject);
         }
-    }
 
-    
+        Destroy(gameObject);
+    }
 }

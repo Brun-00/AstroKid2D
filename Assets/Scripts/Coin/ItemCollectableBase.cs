@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemCollectableBase : MonoBehaviour
 {
     public string compareTag = "Player";
+    public ParticleSystem particlePrefab;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,12 +16,19 @@ public class ItemCollectableBase : MonoBehaviour
     }
     protected virtual void Collect()
     {
-        Destroy(gameObject);
         OnCollect();
+        Destroy(gameObject);
+        
     }
 
     protected virtual void OnCollect()
     {
+        if (particlePrefab != null)
+        {
+            ParticleSystem ps = Instantiate(particlePrefab, transform.position, Quaternion.identity);
+            ps.Play();
 
+            Destroy(ps.gameObject, 5);
+        }
     }
 }
