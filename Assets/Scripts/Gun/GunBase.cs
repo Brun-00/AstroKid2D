@@ -15,30 +15,20 @@ public class GunBase : MonoBehaviour
 
 
 
-    private void Update()
+    float nextShotTime = 0f;
+
+    void Update()
     {
         if (player != null && player.IsDead()) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && Time.time >= nextShotTime)
         {
-            _currentCoroutine = StartCoroutine(StartShoot());
-        }
-        else if(Input.GetMouseButtonUp(0))
-        {
-            if(_currentCoroutine != null)
-            {
-                StopCoroutine(_currentCoroutine);
-            }
+            Shoot();
+            nextShotTime = Time.time + timeBetweenShots;
         }
     }
 
-    IEnumerator StartShoot()
-    {
-        
-            Shoot();
-            yield return new WaitForSeconds(timeBetweenShots);
-        
-    }
+ 
 
     public void Shoot()
     {

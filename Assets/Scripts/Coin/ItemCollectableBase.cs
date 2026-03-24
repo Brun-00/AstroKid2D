@@ -7,6 +7,8 @@ public class ItemCollectableBase : MonoBehaviour
     public string compareTag = "Player";
     public ParticleSystem particlePrefab;
 
+    public AudioSource audioSource;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag(compareTag))
@@ -23,12 +25,17 @@ public class ItemCollectableBase : MonoBehaviour
 
     protected virtual void OnCollect()
     {
+        if (audioSource != null && audioSource.clip != null)
+        {
+            AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
+        }
         if (particlePrefab != null)
         {
             ParticleSystem ps = Instantiate(particlePrefab, transform.position, Quaternion.identity);
             ps.Play();
 
             Destroy(ps.gameObject, 5);
+            
         }
     }
 }

@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
 
     public ParticleSystem particlePrefab;
 
+    public GameObject deathUI;
+
 
     private void Awake()
     {
@@ -40,15 +42,23 @@ public class Player : MonoBehaviour
     private void OnPlayerKill()
     {
         _healthBase.OnKill -= OnPlayerKill;
+        StartCoroutine(HandleDeath());
+
+    }
+
+    IEnumerator HandleDeath()
+    {
         animator.SetTrigger(playerSetup.triggerDeath);
         _isDead = true;
 
         if (gun != null)
         {
             gun.StopShooting();
-            gun.enabled = false; 
+            gun.enabled = false;
         }
-
+        deathUI.SetActive(true);
+        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = 0f;
     }
     private void Update()
     {

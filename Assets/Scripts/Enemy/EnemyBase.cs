@@ -11,6 +11,14 @@ public class EnemyBase : MonoBehaviour
     public HealhtBase health;
     public string deathTrigger = "Death";
 
+    public Rigidbody2D rb;
+    public Transform player;
+    public float moveSpeed = 2f;
+
+    public BoxCollider2D boxCollider;
+    public BoxCollider2D hitbox;
+
+
     private void Awake()
     {
         if (health != null)
@@ -20,15 +28,31 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    private void FixedUpdate()
+    {
+        MoveToPlayer();
+    }
+
+
+
     private void OnEnemyKill()
     {
+        player = null;
+        boxCollider.enabled = false;
+        hitbox.enabled = false;
         health.OnKill -= OnEnemyKill;
         PlayDeathAnimation();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        var health = collision.gameObject.GetComponent<HealhtBase>();
+        
+        var health = collision.GetComponent<HealhtBase>();
 
         if (health != null)
         {
@@ -53,5 +77,26 @@ public class EnemyBase : MonoBehaviour
         health.Damage(amount);
     }
 
-    
+    void MoveToPlayer()
+    {
+        if (player == null) return;
+
+        Vector2 direction = (player.position - transform.position).normalized;
+        rb.velocity = direction * moveSpeed;
+
+        Flip(direction);
+    }
+
+    void Flip(Vector2 direction)
+    {
+        if (direction.x == 0) return;
+
+        Vector3 scale = transform.localScale;
+
+        scale.x = direction.x > 0 ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+
+        transform.localScale = scale;
+    }
+
+
 }
