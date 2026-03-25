@@ -57,7 +57,7 @@ MonoBehaviour:
   deathTrigger: Death
   rb: {fileID: 6205105473914024705}
   player: {fileID: 0}
-  moveSpeed: 3
+  moveSpeed: 6
   boxCollider: {fileID: 387615239919035984}
   hitbox: {fileID: 2587926060178637338}
 --- !u!61 &387615239919035984

@@ -19,15 +19,23 @@ public class ItemCollectableBase : MonoBehaviour
     protected virtual void Collect()
     {
         OnCollect();
-        Destroy(gameObject);
-        
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.Play();
+            Destroy(gameObject, audioSource.clip.length);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     protected virtual void OnCollect()
     {
         if (audioSource != null && audioSource.clip != null)
         {
-            AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
+            audioSource.Play();
         }
         if (particlePrefab != null)
         {

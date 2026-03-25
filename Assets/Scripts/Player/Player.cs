@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
 
     public GameObject deathUI;
 
+    public AudioSource jumpSound;
+
 
     private void Awake()
     {
@@ -131,7 +133,7 @@ public class Player : MonoBehaviour
             ps.Play();
             rb.velocity = Vector2.up * playerSetup.jumpForce;
             Destroy(ps.gameObject, 5);
-
+            jumpSound.Play();
         }
     }
 
