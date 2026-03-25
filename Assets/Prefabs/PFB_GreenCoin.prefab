@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -215185950197355228, guid: 02e5ae447ec48e24c9498a587185599e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0
+  m_Volume: 0.725
   m_Pitch: 1.61
   Loop: 0
   Mute: 0
@@ -264,6 +264,7 @@ MonoBehaviour:
   compareTag: Player
   particlePrefab: {fileID: 5034567291621903429}
   audioSource: {fileID: 6843059248187522907}
+  spriteRenderer: {fileID: 7838866320422717364}
   price: {fileID: 11400000, guid: 330c4c67c01ed2a42a0d575d10a04f03, type: 2}
 --- !u!58 &9092119065042378059
 CircleCollider2D:

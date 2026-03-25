@@ -9,6 +9,8 @@ public class ItemCollectableBase : MonoBehaviour
 
     public AudioSource audioSource;
 
+    public SpriteRenderer spriteRenderer;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.CompareTag(compareTag))
@@ -22,6 +24,7 @@ public class ItemCollectableBase : MonoBehaviour
         if (audioSource != null && audioSource.clip != null)
         {
             audioSource.Play();
+            spriteRenderer.enabled = false;
             Destroy(gameObject, audioSource.clip.length);
         }
         else

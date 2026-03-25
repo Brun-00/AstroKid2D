@@ -13,6 +13,8 @@ public class GunBase : MonoBehaviour
 
     public Player player;
 
+    public AudioSource shootSound;
+
 
 
     float nextShotTime = 0f;
@@ -36,6 +38,8 @@ public class GunBase : MonoBehaviour
 
         var projectile = Instantiate(projectilePrefab);
         projectile.transform.position = shootingPosition.position;
+
+        shootSound.Play();
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;

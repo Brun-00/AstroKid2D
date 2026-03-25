@@ -18,6 +18,8 @@ public class EnemyBase : MonoBehaviour
     public BoxCollider2D boxCollider;
     public BoxCollider2D hitbox;
 
+    public AudioSource deathSound;
+
 
     private void Awake()
     {
@@ -46,6 +48,7 @@ public class EnemyBase : MonoBehaviour
         boxCollider.enabled = false;
         hitbox.enabled = false;
         health.OnKill -= OnEnemyKill;
+        deathSound.Play();
         PlayDeathAnimation();
     }
 

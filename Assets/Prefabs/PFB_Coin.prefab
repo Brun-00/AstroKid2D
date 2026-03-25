@@ -264,6 +264,7 @@ MonoBehaviour:
   compareTag: Player
   particlePrefab: {fileID: 1142129660118799577}
   audioSource: {fileID: 3355104618926962928}
+  spriteRenderer: {fileID: 7838866320422717364}
   price: {fileID: 11400000, guid: f87975739f373a245bad69fc6949a8fe, type: 2}
 --- !u!58 &9092119065042378059
 CircleCollider2D:
