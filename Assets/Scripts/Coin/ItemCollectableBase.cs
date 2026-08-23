@@ -23,6 +23,7 @@ public class ItemCollectableBase : MonoBehaviour
         OnCollect();
         if (audioSource != null && audioSource.clip != null)
         {
+            audioSource.pitch = Random.Range(0.6f, 1.4f);
             audioSource.Play();
             spriteRenderer.enabled = false;
             Destroy(gameObject, audioSource.clip.length);

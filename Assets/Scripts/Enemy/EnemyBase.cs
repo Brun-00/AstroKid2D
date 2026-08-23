@@ -48,6 +48,7 @@ public class EnemyBase : MonoBehaviour
         boxCollider.enabled = false;
         hitbox.enabled = false;
         health.OnKill -= OnEnemyKill;
+        deathSound.pitch = Random.Range(0.6f, 1.4f);
         deathSound.Play();
         PlayDeathAnimation();
     }

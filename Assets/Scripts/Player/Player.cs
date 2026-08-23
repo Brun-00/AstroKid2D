@@ -133,6 +133,7 @@ public class Player : MonoBehaviour
             ps.Play();
             rb.velocity = Vector2.up * playerSetup.jumpForce;
             Destroy(ps.gameObject, 5);
+            jumpSound.pitch = Random.Range(0.6f, 1.4f);
             jumpSound.Play();
         }
     }

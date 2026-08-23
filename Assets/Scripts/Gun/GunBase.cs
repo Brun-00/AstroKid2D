@@ -39,6 +39,7 @@ public class GunBase : MonoBehaviour
         var projectile = Instantiate(projectilePrefab);
         projectile.transform.position = shootingPosition.position;
 
+        shootSound.pitch = Random.Range(0.6f, 1.4f);
         shootSound.Play();
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

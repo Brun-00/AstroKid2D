@@ -44,3 +44,6 @@ TagManager:
   - name: Characters
     uniqueID: 3925347975
     locked: 0
+  - name: CharEnem
+    uniqueID: 2821759799
+    locked: 0
