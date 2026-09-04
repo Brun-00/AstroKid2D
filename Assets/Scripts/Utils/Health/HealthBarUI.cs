@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -16,7 +18,9 @@ public class HealthBarUI : MonoBehaviour
         if (healthBase == null)
             return;
 
-        healthBar.fillAmount = healthBase.CurrentLife / healthBase.MaxLife;
+        // Set the initial fill based on the current health.
+        healthBar.fillAmount =
+            healthBase.CurrentLife / healthBase.MaxLife;
     }
 
     private void Update()
@@ -24,11 +28,15 @@ public class HealthBarUI : MonoBehaviour
         if (healthBase == null || healthBar == null)
             return;
 
-        float targetFill = healthBase.CurrentLife / healthBase.MaxLife;
+        float targetFill =
+            healthBase.CurrentLife / healthBase.MaxLife;
 
+        // Animate the health bar whenever the target value changes.
         if (healthBar.fillAmount != targetFill)
         {
-            healthBar.DOFillAmount(targetFill, duration).SetEase(ease);
+            healthBar
+                .DOFillAmount(targetFill, duration)
+                .SetEase(ease);
         }
     }
 }

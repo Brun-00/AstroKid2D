@@ -16,14 +16,15 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        // Start continuously spawning enemies.
         StartCoroutine(SpawnEnemies());
-
     }
 
     IEnumerator SpawnEnemies()
     {
         while (true)
         {
+            // Spawn an enemy and wait before spawning the next one.
             SpawnEnemy();
             yield return new WaitForSeconds(spawnInterval);
         }
@@ -31,9 +32,12 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemy()
     {
+        // Pick a random position inside the defined spawn area.
         float randomX = Random.Range(minX, maxX);
         float randomY = Random.Range(minY, maxY);
+
         Vector3 spawnPosition = new Vector3(randomX, randomY, 0f);
+
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 }

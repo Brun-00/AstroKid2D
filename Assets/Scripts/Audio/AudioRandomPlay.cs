@@ -12,14 +12,19 @@ public class AudioRandomPlay : MonoBehaviour
 
     public void PlayRandom()
     {
-        if (_index >= audioSources.Count) _index = 0;
+        // Reuse the audio sources once the list reaches its end.
+        if (_index >= audioSources.Count)
+            _index = 0;
 
         var audioSource = audioSources[_index];
 
-        audioSource.clip = audioClips[Random.Range(0, audioClips.Count)];
+        // Pick a random clip and play it on the current source.
+        audioSource.clip = audioClips[
+            Random.Range(0, audioClips.Count)
+        ];
+
         audioSource.Play();
 
         _index++;
-
     }
 }

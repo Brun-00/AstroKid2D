@@ -8,11 +8,13 @@ public class MenuButtons : MonoBehaviour
 
     public void OpenMenu()
     {
+        // Enable the menu object.
         menu.SetActive(true);
     }
 
     public void CloseMenu()
     {
+        // Disable the menu object.
         menu.SetActive(false);
     }
 }

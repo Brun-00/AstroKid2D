@@ -15,14 +15,14 @@ public class GunBase : MonoBehaviour
 
     public AudioSource shootSound;
 
-
-
     float nextShotTime = 0f;
 
     void Update()
     {
+        // Prevent shooting while the player is dead.
         if (player != null && player.IsDead()) return;
 
+        // Shoot while holding the mouse button, respecting the fire rate.
         if (Input.GetMouseButton(0) && Time.time >= nextShotTime)
         {
             Shoot();
@@ -30,21 +30,24 @@ public class GunBase : MonoBehaviour
         }
     }
 
- 
-
     public void Shoot()
     {
+        // Prevent shooting while the player is dead.
         if (player != null && player.IsDead()) return;
 
+        // Create a new projectile at the shooting position.
         var projectile = Instantiate(projectilePrefab);
         projectile.transform.position = shootingPosition.position;
 
+        // Randomize the shooting sound pitch slightly.
         shootSound.pitch = Random.Range(0.6f, 1.4f);
         shootSound.Play();
 
+        // Convert the mouse position from screen space to world space.
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
 
+        // Calculate the direction from the gun to the mouse.
         Vector2 direction = (mousePos - shootingPosition.position).normalized;
 
         projectile.SetDirection(direction);
@@ -52,6 +55,7 @@ public class GunBase : MonoBehaviour
 
     public void StopShooting()
     {
+        // Stop the current shooting coroutine if one is running.
         if (_currentCoroutine != null)
         {
             StopCoroutine(_currentCoroutine);

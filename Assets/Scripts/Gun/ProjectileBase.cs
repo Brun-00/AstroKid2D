@@ -13,18 +13,20 @@ public class ProjectileBase : MonoBehaviour
 
     private void Awake()
     {
+        // Get the projectile Rigidbody and set its lifetime.
         _rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, destroyTime);
     }
 
     public void SetDirection(Vector2 dir)
     {
+        // Normalize the direction so speed stays consistent.
         _direction = dir.normalized;
 
-        // Move usando física
+        // Apply movement using physics.
         _rb.velocity = _direction * speed;
 
-        // Rotaciona na direção do tiro
+        // Rotate the projectile to face its movement direction.
         float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
@@ -33,11 +35,13 @@ public class ProjectileBase : MonoBehaviour
     {
         var enemy = collision.transform.GetComponent<EnemyBase>();
 
+        // Damage the enemy if the projectile hits one.
         if (enemy != null)
         {
             enemy.Damage(damage);
         }
 
+        // Destroy the projectile after any collision.
         Destroy(gameObject);
     }
 }

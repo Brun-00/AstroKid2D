@@ -11,12 +11,14 @@ public class AudioChangeVolume : MonoBehaviour
 
     private void Awake()
     {
+        // Use the attached Slider when one is not assigned manually.
         if (slider == null)
             slider = GetComponent<Slider>();
     }
 
     private void Start()
     {
+        // Match the slider value with the current mixer value.
         SyncSliderWithMixer();
     }
 
@@ -25,15 +27,16 @@ public class AudioChangeVolume : MonoBehaviour
         if (slider == null || group == null)
             return;
 
+        // Read the current exposed mixer parameter value.
         if (group.GetFloat(floatParam, out float currentValue))
         {
             slider.SetValueWithoutNotify(currentValue);
         }
-
     }
 
     public void ChangeValue(float f)
     {
+        // Update the exposed mixer parameter from the slider.
         group.SetFloat(floatParam, f);
     }
 }
